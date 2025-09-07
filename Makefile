@@ -51,9 +51,9 @@ setup2:
 
 clean:
 	rm -f $(ISO_FILE)
-	rm debian1.qcow2
-	rm debian2.qcow2
-	rm seed1.iso
-	rm seed2.iso
-	rm zfs1.iso
-	rm zfs2.iso
+	rm -f debian1.qcow2
+	rm -f debian2.qcow2
+	rm -f seed1.iso
+	rm -f seed2.iso
+	rm -f zfs1.qcow2
+	rm -f zfs2.qcow2
