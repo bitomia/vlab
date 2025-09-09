@@ -38,13 +38,13 @@ setup0:
 	fi
 
 setup1:
-	hdiutil makehybrid -o seed1.iso -hfs -joliet -iso -default-volume-name cidata seed
+	hdiutil makehybrid -o seed1.iso -hfs -joliet -iso -default-volume-name cidata seed1
 	cp $(ISO_FILE) debian1.qcow2
 	qemu-img resize debian1.qcow2 +20G
 	qemu-img create -f qcow2 zfs1.qcow2 20G
 
 setup2:
-	hdiutil makehybrid -o seed2.iso -hfs -joliet -iso -default-volume-name cidata seed
+	hdiutil makehybrid -o seed2.iso -hfs -joliet -iso -default-volume-name cidata seed2
 	cp $(ISO_FILE) debian2.qcow2
 	qemu-img resize debian2.qcow2 +20G
 	qemu-img create -f qcow2 zfs2.qcow2 20G

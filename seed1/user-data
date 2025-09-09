@@ -5,7 +5,7 @@ users:
     shell: /bin/bash
     sudo: ALL=(ALL) NOPASSWD:ALL
     ssh-authorized-keys:
-      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOELb/upiEJVeG+QETS41uYN7YwpByBMFNg0DDOd5O+T debian@host
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIe/v30JdYtXfCkSc13q0hiyoXWy6Up+5Tfc/Re+xFAJ ansible@host
 chpasswd:
   list: |
      ansible:ansible
