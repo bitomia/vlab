@@ -1,0 +1,56 @@
+# Manage a virtual lab with MacOS or Linux as host system
+
+ISO_URL=https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-generic-amd64.qcow2
+ISO_FILE=debian-12-generic-amd64.qcow2
+
+.PHONY:  run1 run2 setup0 setup1 setup2
+
+run1:
+	qemu-system-x86_64 \
+		-drive file=seed1.iso,format=raw,media=cdrom \
+	    -drive file=debian1.qcow2,format=qcow2 \
+	    -drive file=zfs1.qcow2,if=virtio,format=qcow2 \
+	    -m 2G \
+	    --nographic -serial mon:stdio -vga none \
+	    -machine type=q35,accel=kvm \
+	    -netdev bridge,id=br0 -device virtio-net-pci,netdev=br0
+
+run2:
+	qemu-system-x86_64 \
+		-drive file=seed2.iso,format=raw,media=cdrom \
+	    -drive file=debian2.qcow2,format=qcow2 \
+	    -drive file=zfs2.qcow2,if=virtio,format=qcow2 \
+	    -m 2G \
+	    --nographic -serial mon:stdio -vga none \
+	    -machine type=q35,accel=kvm \
+	    -netdev bridge,id=br0 -device virtio-net-pci,netdev=br0,mac=52:54:00:12:34:57
+
+setup0:
+	@echo "Checking for $(ISO_FILE)..."
+	@if [ ! -f "$(ISO_FILE)" ]; then \
+		echo "Downloading $(ISO_FILE)..."; \
+		curl -L -o $(ISO_FILE) $(ISO_URL); \
+	else \
+		echo "$(ISO_FILE) already exists, skipping download."; \
+	fi
+
+setup1:
+	genisoimage --input-charset utf-8 -output seed1.iso -volid cidata -joliet -rock seed1/
+	cp $(ISO_FILE) debian1.qcow2
+	qemu-img resize debian1.qcow2 +20G
+	qemu-img create -f qcow2 zfs1.qcow2 20G
+
+setup2:
+	genisoimage --input-charset utf-8 -output seed2.iso -volid cidata -joliet -rock seed2/
+	cp $(ISO_FILE) debian2.qcow2
+	qemu-img resize debian2.qcow2 +20G
+	qemu-img create -f qcow2 zfs2.qcow2 20G
+
+clean:
+	rm -f $(ISO_FILE)
+	rm -f debian1.qcow2
+	rm -f debian2.qcow2
+	rm -f seed1.iso
+	rm -f seed2.iso
+	rm -f zfs1.qcow2
+	rm -f zfs2.qcow2

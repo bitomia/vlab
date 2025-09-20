@@ -3,7 +3,7 @@
 ISO_URL=https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-generic-amd64.qcow2
 ISO_FILE=debian-12-generic-amd64.qcow2
 
-.PHONE: run_vmnet run1 run2 setup0 setup1 setup2
+.PHONY: run_vmnet run1 run2 setup0 setup1 setup2
 
 run_vmnet:
 	sudo socket_vmnet --vmnet-gateway=192.168.105.1 /tmp/vde.ctl

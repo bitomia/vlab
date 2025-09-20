@@ -1,4 +1,7 @@
 #cloud-config
+hostname: lab2
+fqdn: lab2.local
+preserve_hostname: false
 users:
   - name: ansible
     groups: sudo
