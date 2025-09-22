@@ -6,7 +6,8 @@ ISO_FILE=debian-12-generic-amd64.qcow2
 .PHONY: run_vmnet run1 run2 setup0 setup1 setup2
 
 run_vmnet:
-	sudo socket_vmnet --vmnet-gateway=192.168.105.1 /tmp/vde.ctl
+	sudo socket_vmnet --vmnet-interface=en0 --vmnet-mode=bridged /tmp/vde.ctl
+#sudo socket_vmnet --vmnet-gateway=192.168.105.1 /tmp/vde.ctl
 
 run1:
 	socket_vmnet_client /tmp/vde.ctl /usr/local/bin/qemu-system-x86_64 \
