@@ -1,6 +1,6 @@
 # Virtual lab
 
-Manage a virtual lab for MacOS as host system.
+Manage a virtual lab.
 
 Dependencies:
 * QEMU >= 10.1.0
